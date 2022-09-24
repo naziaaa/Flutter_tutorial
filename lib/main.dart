@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 Future <List<Data>> fetchData() async {
   final response = await http
-      .get(Uri.parse("https://jsonplaceholder.typicode.com/albums"));
+      .get(Uri.parse("https://jsonplaceholder.typicode.com/posts"));
   if (response.statusCode == 200) {
     List jsonResponse = json.decode(response.body);
     return jsonResponse.map((data) => new Data.fromJson(data)).toList();
@@ -18,17 +18,20 @@ class Data {
   final int userId;
   final int id;
   final String title;
+  final String body;
 
   Data({
     required this.userId,
     required this.id,
-    required this.title});
+    required this.title,
+    required this.body});
 
   factory Data.fromJson(Map<String, dynamic> json) {
     return Data(
       userId: json['userId'],
       id: json['id'],
       title: json['title'],
+      body: json['body'],
     );
   }
 }
